@@ -1,27 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
+    [SerializeField] private LayerMask groundMask;
+    
+    [SerializeField] private float mouseSensitivity = 50f;
+    [SerializeField] private float sprintSpeed = 10f;
+    [SerializeField] private float walkSpeed = 6f;
+    
+    [SerializeField] private Transform cameraTarget;
+    [SerializeField] private GameObject mainCamera;
+    [SerializeField] private Transform groundCheck;
+    private bool IsGrounded => Physics.CheckSphere(groundCheck.position, 0.2f, groundMask);
+    
     private CharacterController controller = null;
     private PlayerInputsManager playerInputsManager = null;
-    public Transform cam;
+    
+    private float xRotation = 0f;
+    private float yRotation = 0f;
 
-    public float speed = 6f;
-    [SerializeField]
-    private float sprintSpeed = 10f;
-    [SerializeField]
-    private float walkSpeed = 6f;
-
-    public float turnSmoothTime = 0.1f;
-    private float turnSmoothVelocity;
-
-    public float gravity = -14f;
-    private Vector3 velocity;
+    public float gravity = -10f;
     public float jump = 1.5f;
+    private Vector3 velocity;
 
-    void Start()
+    private void Start()
     {
         Cursor.visible = false; //hide cursor
         Cursor.lockState = CursorLockMode.Locked; // cursor in middle
@@ -31,33 +34,57 @@ public class ThirdPersonMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) // shows cursor and unlocks it 
         {
-            Cursor.visible = true; //show cursor
-            Cursor.lockState = CursorLockMode.None; // cursor in middle
+            Cursor.visible = !Cursor.visible;
+            Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
         }
 
-        var targetDir = new Vector3(playerInputsManager.move.x, 0, playerInputsManager.move.y);
-        speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;
+        PlayerMovement();
+        JumpAndGravity();
+    }
 
-        controller.Move(targetDir * (speed * Time.deltaTime));
+    private void LateUpdate() {
+        CameraRotation();
+    }
+
+    private void PlayerMovement() {
+        var inputDirection = new Vector3(playerInputsManager.move.x, 0, playerInputsManager.move.y);
+        var targetRotation = 0f;
+        var moveSpeed = 0f;
         
-        speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;
+        if (playerInputsManager.move != Vector2.zero) {
+            moveSpeed = playerInputsManager.sprint ? sprintSpeed : walkSpeed;
+            targetRotation = Quaternion.LookRotation(inputDirection).eulerAngles.y + mainCamera.transform.rotation.eulerAngles.y;
 
-        //jumping
-        if (controller.isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
+            var rotation = Quaternion.Euler(0f, targetRotation, 0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 12 * Time.deltaTime);
         }
+        
+        var targetDir = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
+        controller.Move(targetDir * (moveSpeed * Time.deltaTime));
+    }
+
+    private void CameraRotation() {
+        var sensitivity = mouseSensitivity / 100f;
+        
+        xRotation += playerInputsManager.look.y * sensitivity;
+        yRotation += playerInputsManager.look.x * sensitivity;
+        xRotation = Mathf.Clamp(xRotation, -30f, 30f);
+        
+        cameraTarget.rotation = Quaternion.Euler(xRotation, -yRotation, 0);
+    }
+
+    private void JumpAndGravity() {
         velocity.y += gravity * Time.deltaTime;
 
-        if (Input.GetButtonDown("Jump") && controller.isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jump * -2.0f * gravity);
+        if (playerInputsManager.jump && IsGrounded) {
+            velocity.y = Mathf.Sqrt(jump * -2f * gravity);
+            playerInputsManager.jump = false;
         }
-
+        
         controller.Move(velocity * Time.deltaTime);
     }
 }
