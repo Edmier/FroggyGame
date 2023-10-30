@@ -568,6 +568,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 694090442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &962500963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 962500964}
+  - component: {fileID: 962500965}
+  m_Layer: 7
+  m_Name: Interactable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &962500964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962500963}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.8143797, y: 5.927289, z: -16.131344}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &962500965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962500963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec253ec832b0e841974464a16767df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,7 +959,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1582462868711945483, guid: 87a3be1fc3b816e499ecf280618d9b0f, type: 3}
       propertyPath: gravity
-      value: -15
+      value: -9.8
       objectReference: {fileID: 0}
     - target: {fileID: 1582462868711945483, guid: 87a3be1fc3b816e499ecf280618d9b0f, type: 3}
       propertyPath: mainCamera
@@ -925,6 +969,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 963194225}
+    - target: {fileID: 1582462868711945483, guid: 87a3be1fc3b816e499ecf280618d9b0f, type: 3}
+      propertyPath: mouseSensitivity
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1770317142960639439, guid: 87a3be1fc3b816e499ecf280618d9b0f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -982,3 +1030,4 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 5154746830429628055}
   - {fileID: 694090442}
+  - {fileID: 962500964}

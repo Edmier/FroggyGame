@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
@@ -8,6 +8,7 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 50f;
     [SerializeField] private float sprintSpeed = 10f;
     [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float airControl = 0.4f;
     
     [SerializeField] private Transform cameraTarget;
     [SerializeField] private GameObject mainCamera;
@@ -21,7 +22,11 @@ public class ThirdPersonMovement : MonoBehaviour
     private float yRotation = 0f;
 
     public float gravity = -10f;
-    public float jump = 1.5f;
+    
+    [SerializeField] public float maxJump = 6f;
+    [SerializeField] public float minJump = 1f;
+    [SerializeField] public float jumpChargeRate = 3f;
+    private float jumpCharge = 0f;
     private Vector3 velocity;
 
     private void Start()
@@ -64,6 +69,12 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         
         var targetDir = Quaternion.Euler(0, targetRotation, 0) * Vector3.forward;
+        
+        if (!IsGrounded) {
+            targetDir.x *= airControl;
+            targetDir.z *= airControl;
+        }
+        
         controller.Move(targetDir * (moveSpeed * Time.deltaTime));
     }
 
@@ -80,9 +91,18 @@ public class ThirdPersonMovement : MonoBehaviour
     private void JumpAndGravity() {
         velocity.y += gravity * Time.deltaTime;
 
-        if (playerInputsManager.jump && IsGrounded) {
-            velocity.y = Mathf.Sqrt(jump * -2f * gravity);
+        if (playerInputsManager.jump && IsGrounded) 
+        {
+            jumpCharge += Math.Min(jumpChargeRate * Time.fixedDeltaTime, maxJump);
+        }
+        else if (jumpCharge > minJump && !playerInputsManager.jump && IsGrounded) 
+        {
+            velocity.y = Mathf.Sqrt(jumpCharge * -2f * gravity);
             playerInputsManager.jump = false;
+            jumpCharge = minJump;
+        }
+        else {
+            jumpCharge = minJump;
         }
         
         controller.Move(velocity * Time.deltaTime);
