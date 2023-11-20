@@ -85,7 +85,7 @@ public class ThirdPersonMovement : MonoBehaviour
         yRotation += playerInputsManager.look.x * sensitivity;
         xRotation = Mathf.Clamp(xRotation, -30f, 30f);
         
-        cameraTarget.rotation = Quaternion.Euler(xRotation, -yRotation, 0);
+        cameraTarget.rotation = Quaternion.Euler(-xRotation, -yRotation, 0);
     }
 
     private void JumpAndGravity() {
