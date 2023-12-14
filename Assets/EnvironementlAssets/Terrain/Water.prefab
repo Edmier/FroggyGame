@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 550749511122384726}
-  - component: {fileID: 5456423857586483223}
-  m_Layer: 0
+  - component: {fileID: 3839506609074117249}
+  - component: {fileID: 6090763302182039009}
+  m_Layer: 4
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,33 +25,54 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4375382654496483180}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8080114, y: 0.7980044, z: 0.5185348}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7507540376479884646}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &5456423857586483223
-MeshCollider:
+--- !u!114 &3839506609074117249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4375382654496483180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11a2e3c6c4bfef438b2493c1662fe43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &6090763302182039009
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4375382654496483180}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 543.60986, y: 1, z: 1008.18555}
+  m_Center: {x: -19.235716, y: 0, z: -435.2817}
 --- !u!1001 &8050920248154587789
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 550749511122384726}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
@@ -58,8 +80,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 399.58978
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 533.10284
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -91
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
       propertyPath: m_LocalPosition.y
@@ -67,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -407
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
       propertyPath: m_LocalRotation.w
@@ -100,12 +130,19 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 06cc72b556f222641a3b01967b597084, type: 2}
+      objectReference: {fileID: 2100000, guid: ad08b242d7c1ec148a513835895e3db8, type: 2}
     - target: {fileID: 919132149155446097, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
       propertyPath: m_Name
       value: Water Plane
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
+      propertyPath: m_Layer
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e8e08b7df908c344a6ab0d3fc8dfc38, type: 3}
 --- !u!4 &7507540376479884646 stripped
 Transform:
