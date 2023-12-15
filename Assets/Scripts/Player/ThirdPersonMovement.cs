@@ -13,7 +13,9 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] private Transform cameraTarget;
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private Transform groundCheck;
-    private bool IsGrounded => Physics.CheckSphere(groundCheck.position, 0.2f, groundMask);
+    [SerializeField] private Animator animator = null;
+
+    private bool IsGrounded => Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
     
     private CharacterController controller = null;
     private PlayerInputsManager playerInputsManager = null;
@@ -23,9 +25,9 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public float gravity = -10f;
     
-    [SerializeField] public float maxJump = 6f;
+    [SerializeField] public float maxJump = 16f;
     [SerializeField] public float minJump = 1f;
-    [SerializeField] public float jumpChargeRate = 3f;
+    [SerializeField] public float jumpChargeRate = 8f;
     private float jumpCharge = 0f;
     private Vector3 velocity;
 
@@ -49,6 +51,8 @@ public class ThirdPersonMovement : MonoBehaviour
 
         PlayerMovement();
         JumpAndGravity();
+
+        UpdateAnimator();
     }
 
     private void LateUpdate() {
@@ -109,5 +113,10 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void UpdateAnimator() {
+        animator.SetFloat("Speed", playerInputsManager.move.magnitude);
+        animator.SetBool("IsGrounded", IsGrounded);
     }
 }
