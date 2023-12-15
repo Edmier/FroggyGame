@@ -7,8 +7,9 @@ public class MenuController : MonoBehaviour
 {
     public string mainMenuScene;
     public GameObject pauseMenu;
-    public static bool isPaused; 
-    
+    public static bool isPaused;
+    public string LevelScene;
+
     // Update is called once per frame
     void Update()
     {
@@ -42,5 +43,9 @@ public class MenuController : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuScene);
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(LevelScene);
     }
 }
